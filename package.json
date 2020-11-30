@@ -1,0 +1,41 @@
+{
+  "name": "ecoe",
+  "version": "1.0.0",
+  "description": "\"EcoFront Economical StoreFronts\"",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node backend/server",
+    "server": "nodemon backend/server",
+    "client": "npm start --prefix eco",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import": "node backend/seeder",
+    "data:destroy": "node backend/seeder -d"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/14Anthony/EcoE.git"
+  },
+  "keywords": [
+    "ecommerce"
+  ],
+  "author": "Anthony Belcastro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/14Anthony/EcoE/issues"
+  },
+  "homepage": "https://github.com/14Anthony/EcoE#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
+    "env": "0.0.2",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.17"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.6"
+  }
+}
