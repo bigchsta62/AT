@@ -1,5 +1,5 @@
 import express from 'express'
-import { addOrderItems } from '../controllers/orderControllers.js'
+import { addOrderItems, getOrderById } from '../controllers/orderControllers.js'
 import { protect } from '../middleware/authMiddleware.js'
 // import asyncHandler from 'express-async-handler'
 // import Product from '../models/productModel.js'
@@ -12,7 +12,7 @@ const router = express.Router()
 // this is access for a public routes
 
 router.route('/').post(protect, addOrderItems)
-
+router.route('/:id').get(protect, getOrderById)
 
 
 
