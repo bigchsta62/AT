@@ -5,12 +5,16 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node backend/server",
-    "server": "nodemon backend/server",
-    "client": "npm start --prefix eco",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js",
+    "client": "cd eco && npm run start",
+    "install": "cd eco && npm install",
+    "build": "cd eco && npm run build",
     "data:import": "node backend/seeder",
-    "data:destroy": "node backend/seeder -d"
+    "data:destroy": "node backend/seeder -d",
+    "client-install": "npm install --prefix eco",
+    "eco": "cd eco && npm run start",
+    "start:dev": "concurrently \"nodemon --ignore 'eco/*'\" \"npm run eco\""
   },
   "repository": {
     "type": "git",

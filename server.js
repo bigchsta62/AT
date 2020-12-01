@@ -1,12 +1,12 @@
 
 import express from "express";
 import dotenv from 'dotenv';
-import connectDB from "./config/db.js";
+import connectDB from "./backend/config/db.js";
 // import products from './DB/products.js'
-import productRoutes from "./routes/productRoutes.js";
-import userRoutes from "./routes/userRoutes.js";
-import orderRoutes from "./routes/orderRoutes.js";
-import { notFound, errorHandler } from "./middleware/errorMid.js";
+import productRoutes from "./backend/routes/productRoutes.js";
+import userRoutes from "./backend/routes/userRoutes.js";
+import orderRoutes from "./backend/routes/orderRoutes.js";
+import { notFound, errorHandler } from "./backend/middleware/errorMid.js";
 
 
 dotenv.config();
