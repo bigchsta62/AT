@@ -8,6 +8,7 @@ import CartPage from './pages/CartPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
+import AdminPage from './pages/AdminPage'
 import ShippingPage from './pages/ShippingPage';
 import PaymentPage from './pages/PaymentPage';
 import PlaceOrderPage from './pages/PlaceOrderPage';
@@ -39,6 +40,8 @@ const App = () => {
             <Route path='/login' component={LoginPage} />
 
             <Route path='/profile' component={ProfilePage} />
+
+            <Route path='/admin' component={AdminPage} />
 
             <Route path='/product/:id' component={ProductPage} />
 

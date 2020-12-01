@@ -1,0 +1,9 @@
+img {
+    height: auto;
+    width: 100px;
+  }
+  
+  #styled{
+    border-radius: 0px;
+    background-color: yellow;
+  }
