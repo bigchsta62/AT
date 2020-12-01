@@ -34,7 +34,7 @@ const orderSchema = mongoose.Schema(
 
         },
         // Travis wants to have multiple payment methods used ....I can only think is will be like this.
-        paymentMethods: {
+        paymentMethod: {
 
             type: String,
             required: true,
