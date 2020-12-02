@@ -1,6 +1,5 @@
 {
   "name": "ecoe",
-  "proxy": "http://127.0.0.1:8800",
   "version": "1.0.0",
   "description": "\"EcoFront Economical StoreFronts\"",
   "main": "server.js",

@@ -14,10 +14,12 @@ dotenv.config();
 connectDB();
 
 const app = express();
+//this is needed when using ECMAScript. __dirname and __filename don't exist
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
 app.use(express.static(path.join(__dirname, 'eco/build')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+app.use("/uploads", express.static("uploads"));
 //This code was commented out to work with heroku
 // app.get("/", (req, res, next) => {
 //     res.send("Backend Begins...");
@@ -41,7 +43,5 @@ app.use(notFound);
 app.use(errorHandler);
 
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, function() {
-  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
-});
+const PORT = process.env.PORT || 8800;
+app.listen(8800);
