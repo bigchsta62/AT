@@ -1,7 +1,7 @@
-
+import mongoose from "mongoose";
 import express from "express";
 import dotenv from 'dotenv';
-import connectDB from "./backend/config/db.js";
+// import connectDB from "./backend/config/db.js";
 // import products from './DB/products.js'
 import productRoutes from "./backend/routes/productRoutes.js";
 import userRoutes from "./backend/routes/userRoutes.js";
@@ -11,7 +11,7 @@ import path from 'path'
 
 dotenv.config();
 
-connectDB();
+// connectDB();
 
 const app = express();
 //this is needed when using ECMAScript. __dirname and __filename don't exist
@@ -36,7 +36,8 @@ app.use("/api/orders", orderRoutes);
 
 app.get("/api/config/paypal", (req, res) => res.send(process.env.PAYPAL_CLIENT_ID))
 
-
+// Connect to the Mongo DB
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/products");
 
 app.use(notFound);
 
