@@ -17,9 +17,9 @@ const app = express();
 
 app.use(express.json())
 
-app.get("/", (req, res, next) => {
-    res.send("Backend Begins...");
-});
+// app.get("/", (req, res, next) => {
+//     res.send("Backend Begins...");
+// });
 
 
 app.use("/api/products", productRoutes);
