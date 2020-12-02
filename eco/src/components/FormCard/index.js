@@ -3,6 +3,7 @@ import { Container, Col, Row } from "react-bootstrap";
 import { Input, TextArea } from "../Form";
 import { Button, Form } from "react-bootstrap";
 import productAPI from "../../utils/productAPI.js";
+import ImageCloud from "../ImageCloud";
 
 function FormCard() {
   const [formObject, setFormObject] = useState({});
@@ -16,7 +17,12 @@ function FormCard() {
     countInStock: "",
     image: "",
   });
-  // console.log(formObject);
+  const [image, setImage] = useState({
+    imageUrl: null,
+    imageAlt: null,
+  });
+
+  console.log(formObject);
   // Load all books and store them with setBooks
   useEffect(() => {}, []);
 
@@ -35,38 +41,49 @@ function FormCard() {
 
   function handleFormSubmit(event) {
     event.preventDefault();
-    // setFile(event.target.files[0]);
-    // const formData = new FormData();
-    // formData.append("productImg", formObject.image);
     if (formObject.title && formObject.price) {
       productAPI
         .saveProduct({
           name: formObject.title,
           description: formObject.description,
           salary: formObject.price,
-          image: "http://res.cloudinary.com/hsmzl2fw7/image/upload/v1606711375/y2rb6ykrxmktufldgdia.jpg",
+          image: formObject.image,
           countInStock: 1,
           rating: 1,
           numReviews: 0,
         })
         .then((res) => loadProducts())
-        .setFormObject({})
         .catch((err) => console.log(err));
     }
   }
 
   function onFileChange(e) {
-    setFormObject({ image: e.target.files[0] });
     setFile(e.target.files[0]);
+    const { files } = document.querySelector('input[type="file"]');
+    const formData = new FormData();
+    formData.append("file", files[0]);
+    formData.append("upload_preset", "productimages");
+    const options = {
+      method: "POST",
+      body: formData,
+    };
+
+    // replace cloudname with your Cloudinary cloud_name
+    return fetch(
+      "https://api.cloudinary.com/v1_1/hsmzl2fw7/image/upload",
+      options
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(image);
+        setImage({
+          imageUrl: res.secure_url,
+          imageAlt: `An image of ${res.original_filename}`,
+        });
+        setFormObject({ image: image.imageUrl });
+      })
+      .catch((err) => console.log(err));
   }
-
-  // Handles file upload event and updates state
-  // function handleUpload(event) {
-  //   setFile(event.target.files[0]);
-
-  // Add code here to upload file to server
-  // ...
-  // }
 
   /**
    * Component to display thumbnail of image.
@@ -103,24 +120,11 @@ function FormCard() {
               name="price"
               placeholder="Price (required)"
             />
-            {/* <FilePond
-              files={file}
-              onupdatefiles={onFileChange}
-              allowMultiple={false}
-              allowFileEncode={true}
-              maxFiles={1}
-              // server="/api/products"
-              name="files"
-              
-              labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
-            /> */}
             <Form.Group>
               <div id="upload-box">
                 <input name="image" type="file" onChange={onFileChange} />
-                <p>File type: {file.type}</p>
-                <p>File size: {file.size} bytes</p>
-                {file && <ImageThumb name="image" image={file} />}
               </div>
+              {file && <ImageThumb name="image" image={file} />}
             </Form.Group>
 
             <Button
