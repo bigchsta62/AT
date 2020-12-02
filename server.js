@@ -27,7 +27,7 @@ app.use("/uploads", express.static("uploads"));
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("shopside/build"));
+  app.use(express.static("eco/build"));
 }
 
 app.use("/api/products", productRoutes);
