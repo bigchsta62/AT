@@ -34,6 +34,9 @@ app.use(notFound);
 
 app.use(errorHandler);
 
-
-const PORT = process.env.PORT || 8800;
-app.listen(8800);
+const PORT = process.env.PORT || 3001;
+// Start the API server
+app.listen(PORT, function() {
+    console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+  });
+  
