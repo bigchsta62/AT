@@ -13,6 +13,9 @@ import ShippingPage from './pages/ShippingPage';
 import PaymentPage from './pages/PaymentPage';
 import PlaceOrderPage from './pages/PlaceOrderPage';
 import OrderPage from './pages/OrderPage';
+import UserListAdminPage from './pages/UserListAdminPage';
+import UserEditAdminPage from './pages/UserEditAdminPage';
+import ProductListAdminPage from './pages/ProductListAdminPage';
 
 import { Container } from 'react-bootstrap';
 
@@ -46,6 +49,12 @@ const App = () => {
             <Route path='/product/:id' component={ProductPage} />
 
             <Route path='/cart/:id?' component={CartPage} />
+
+            <Route path='/admin/userlist' component={UserListAdminPage} />
+
+            <Route path='/admin/user/:id/edit' component={UserEditAdminPage} />
+
+            <Route path='/admin/productlist' component={ProductListAdminPage} />
 
             <Route path='/' component={HomePage} exact />
 

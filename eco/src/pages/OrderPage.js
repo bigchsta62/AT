@@ -38,7 +38,7 @@ const OrderPage = ({ match }) => {
 
         // || order._id !== orderId
 
-        if (!order || successPay) {
+        if (!order || successPay || order._id !== orderId) {
             dispatch({ type: ORDER_PAY_RESET })
             dispatch(getOrderDetails(orderId))
         } else if (!order.isPaid) {
@@ -51,18 +51,20 @@ const OrderPage = ({ match }) => {
     }, [dispatch, order, orderId, successPay])
 
     const successPaymentHandler = (paymentResult) => {
+
         console.log(paymentResult)
+
         dispatch(payOrder(orderId, paymentResult))
     }
 
-    return loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : <>
+    return loading ? <Loader /> : error ? <Message variant='warning'>{error}</Message> : <>
         <h2>Purchase Order {order._id}</h2>
         <Row>
             <Col md={8}>
                 <ListGroup variant='flush'>
                     <ListGroup.Item>
                         <h2>Shipping</h2>
-                        {/* <p><strong>Name:</strong> {order.user.email}</p> */}
+                        {/* <p><strong>Name:</strong>{order.user.name}</p> */}
                         Address:
                         {/* <p><a href={`mailto:${order.user.email}`}>{order.user.email}</a></p> */}
                         <p>
@@ -77,7 +79,7 @@ const OrderPage = ({ match }) => {
 
                         </p>
 
-                        {order.isDelivered ? <Message variant='success'>{order.deliveredAt}</Message> : <Message variant='danger'>Delivery in Route</Message>}
+                        {order.isDelivered ? <Message variant='success'>{order.deliveredAt}</Message> : <Message variant='warning'>Delivery in Route</Message>}
 
                     </ListGroup.Item>
 
@@ -86,7 +88,7 @@ const OrderPage = ({ match }) => {
                         <p>
                             Method:{' '}{order.paymentMethod}
                         </p>
-                        {order.isPaid ? <Message variant='success'>{order.paidAt}</Message> : <Message variant='danger'>Payment Required</Message>}
+                        {order.isPaid ? <Message variant='success'>{order.paidAt}</Message> : <Message variant='warning'>Payment Required</Message>}
                     </ListGroup.Item>
 
                     <ListGroup.Item>

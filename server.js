@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
+
 import express from "express";
 import dotenv from 'dotenv';
-// import connectDB from "./backend/config/db.js";
+import connectDB from "./backend/config/db.js";
 // import products from './DB/products.js'
 import productRoutes from "./backend/routes/productRoutes.js";
 import userRoutes from "./backend/routes/userRoutes.js";
@@ -11,7 +11,7 @@ import path from 'path'
 
 dotenv.config();
 
-// connectDB();
+connectDB();
 
 const app = express();
 //this is needed when using ECMAScript. __dirname and __filename don't exist
@@ -30,14 +30,17 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("eco/build"));
 }
 
+app.get('/', (req, res) => {
+	res.sendFile(path.join(__dirname, 'eco'));
+});
+
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
 
 app.get("/api/config/paypal", (req, res) => res.send(process.env.PAYPAL_CLIENT_ID))
 
-// Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/products");
+
 
 app.use(notFound);
 
@@ -45,6 +48,7 @@ app.use(errorHandler);
 
 
 const PORT = process.env.PORT || 8800;
+//this configuration is required for heroku
 app.listen(PORT, function() {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });
